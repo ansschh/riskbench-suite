@@ -1,0 +1,68 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "riskbench-suite"
+version = "0.1.0"
+description = "A comprehensive toolkit for end-to-end risk-aware benchmarking of autonomous agents"
+authors = ["Ansh Tiwari <ansh@caltech.edu>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/ansschh/riskbench-suite"
+repository = "https://github.com/ansschh/riskbench-suite"
+documentation = "https://github.com/ansschh/riskbench-suite/tree/main/docs"
+keywords = ["risk", "benchmark", "autonomous-agents", "testing", "monitoring"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Testing"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.6.3"
+PyYAML = "^6.0.1"
+click = "^8.1.7"
+selenium = "^4.10.0"
+importlib-metadata = { version = "^6.0", python = "<3.10" }
+pandas = "^2.0"
+matplotlib = "^3.7"
+tabulate = "^0.9.0"
+fastapi = "^0.100.0"
+uvicorn = { extras = ["standard"], version = "^0.22.0" }
+python-multipart = "^0.0.6"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.0"
+black = "^23.3.0"
+isort = "^5.10.1"
+mypy = "^0.971"
+pre-commit = "^3.4.0"
+click = "^8.1.0"
+types-pyyaml = "^6.0.12.20250516"
+pytest-sugar = "^1.0.0"
+sphinx = "^8.2.3"
+
+[tool.poetry.scripts]
+riskbench = "riskbench_core.cli:main"
+
+[[tool.poetry.packages]]
+include = "riskbench_core"
+
+[tool.poetry.plugins."riskbench.envs"]
+DummyEnv = "tests.test_runner:DummyEnv"
+
+[tool.poetry.plugins."riskbench.agents"]
+DummyAgent = "tests.test_runner:DummyAgent"
+
+[tool.poetry.plugins."riskbench.monitors"]
+DummyMonitor = "tests.test_runner:DummyMonitor"
+budget50 = "riskbench_core.monitors:BudgetMonitor50"
+budget100 = "riskbench_core.monitors:BudgetMonitor100"
+cvar90 = "riskbench_core.monitors:CVaRMonitor90"
+cvar95 = "riskbench_core.monitors:CVaRMonitor95"

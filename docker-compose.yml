@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  cli:
+    image: yourorg/riskbench-cli:latest
+    volumes:
+      - ./tasks:/app/tasks
+      - ./logs:/app/logs
+    entrypoint: ["riskbench", "run", "--tasks", "tasks/*.yaml", "--env", "SeleniumEnv", "--agents", "MyAgent", "--out-dir", "logs"]
+
+  dashboard:
+    image: yourorg/riskdash:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - RISKBENCH_LOGS_DIR=/app/logs
+    volumes:
+      - ./logs:/app/logs

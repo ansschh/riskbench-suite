@@ -1,0 +1,2 @@
+{"step": 0, "obs": {}, "action": null, "loss": 0.0, "budget": 0.0}
+{"step": 1, "obs": {}, "action": null, "outcome": "success", "total_loss": 0.0}

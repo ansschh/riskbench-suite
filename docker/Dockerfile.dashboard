@@ -1,0 +1,25 @@
+# Stage 1: build frontend
+FROM node:18-alpine AS frontend-builder
+WORKDIR /app
+COPY dashboard/package.json dashboard/package-lock.json ./
+RUN npm ci
+COPY dashboard/ ./
+RUN npm run build
+
+# Stage 2: build backend
+FROM python:3.10-slim
+
+WORKDIR /app
+# Copy Python backend
+COPY pyproject.toml poetry.lock ./
+RUN pip install poetry && \
+    poetry config virtualenvs.create false && \
+    poetry install --no-dev --no-interaction
+
+# Copy built frontend
+COPY --from=frontend-builder /app/dist /app/dashboard/dist
+COPY riskbench_core /app/riskbench_core
+
+EXPOSE 8000
+ENTRYPOINT ["riskbench", "dashboard"]
+CMD ["--help"]
