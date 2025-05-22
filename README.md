@@ -72,8 +72,8 @@ If you use RiskBench Suite in your research, please cite:
 ```bibtex
 @software{riskbench_suite,
   title = {RiskBench Suite},
-  author = {Your Name},
+  author = {Ansh Tiwari, Ayush Chauhan},
   year = {2025},
-  url = {https://github.com/yourusername/riskbench-suite}
+  url = {https://github.com/ansschh/riskbench-suite}
 }
 ```
